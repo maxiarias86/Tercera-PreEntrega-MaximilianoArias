@@ -5,10 +5,10 @@ from AppEco.models import Paciente, Medico, Ecografia
 # Create your views here.
 
 def inicio(request):
-    return HttpResponse('vista inicio')
+    return render (request, 'inicio.html')
 def pacientes(request):
-    return HttpResponse('vista pacientes')
+    return render (request, 'pacientes.html')
 def medicos(request):
-    return HttpResponse('vista medicos')
+    return render (request, 'medicos.html')
 def ecografias(request):
-    return HttpResponse('vista ecografias')
+    return render (request, 'ecografias.html')
