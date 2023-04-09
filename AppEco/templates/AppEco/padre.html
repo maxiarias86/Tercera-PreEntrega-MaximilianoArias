@@ -34,7 +34,11 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Bienvenido a la página de inicio</h1>
+
+                            {% block titulo %}
+
+                            {% endblock %}
+                            
                             <!-- Signup form-->
                             <!-- * * * * * * * * * * * * * * *-->
                             <!-- * * SB Forms Contact Form * *-->
@@ -76,6 +80,11 @@
             </div>
         </header>
         <!-- Icons Grid-->
+
+        {% block contenido_que_cambia %}
+        
+        {% endblock %}
+
         <section class="features-icons bg-light text-center">
             <div class="container">
                 <div class="row">

@@ -3,9 +3,9 @@ from AppEco.views import *
 
 urlpatterns = [
     
-    path("", inicio),
-    path("pacientes/", pacientes),
-    path("medicos/", medicos),
-    path("ecografias/", ecografias),
+    path("", inicio, name="inicioAppEco"),
+    path("pacientes/", pacientes, name="pacientes"),
+    path("medicos/", medicos, name="medicos"),
+    path("ecografias/", ecografias, name="ecografias"),
     
 ]
