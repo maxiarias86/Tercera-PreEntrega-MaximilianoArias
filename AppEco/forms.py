@@ -1,6 +1,6 @@
 from django import forms
 
-sexos = [
+generos = [
     ('M', 'masculino'),
     ('F', 'femenino'),
     ('NB', 'no binario')
@@ -13,4 +13,4 @@ class PacienteFormulario(forms.Form):
     apellido=forms.CharField(max_length=40)
     mail=forms.EmailField()
     fecha_nacimiento=forms.DateField()
-    sexo=forms.CharField(max_length=2, choices=sexos, default='F')
+    sexo=forms.ChoiceField(choices=generos, required=True, label='Seleccione su genero')
