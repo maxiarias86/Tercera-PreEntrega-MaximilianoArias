@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario - Agregar paciente</title>
-</head>
-<body>
+{% extends "AppEco/padre.html" %}
 
-    {%if miFormulario.errors %}
+{% load static %}
 
-    <p>Estan mal los datos, revisar</p>
+{% block titulo %}
 
-    {% endif %}
+<h1 class="mb-5">Agregar Paciente</h1>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+{%if miFormulario.errors %}
+
+<p>Estan mal los datos, revisar</p>
+
+{% endif %}
 
 
-    <form action="/pacienteFormulario/" method="POST">{% csrf_token %}
+<form action="/AppEco/pacienteFormulario/" method="POST">{% csrf_token %}
 
-       <table>
+    <table>
 
         {{ miFormulario.as_table }}
 
-       </table>
+    </table>
 
-        <input type="submit" value="Enviar">
-    </form>
-</body>
-</html>
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

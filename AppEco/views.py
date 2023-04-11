@@ -24,10 +24,29 @@ def pacienteFormulario(request):
 
         if miFormulario.is_valid:
             informacion = miFormulario.cleaned_data
-            paciente= Paciente(DNI= informacion['DNI'], nombre= informacion['nombre'], apellido= informacion['apellido'],mail= informacion['mail'],fecha_nacimiento= informacion['fecha_nacimiento'], sexo= informacion['sexo'])
+        
+            DNI= informacion['DNI']
+            nombre= informacion['nombre']
+            apellido= informacion['apellido']
+            mail= informacion['mail']
+            fecha_nacimiento= informacion['fecha_nacimiento']
+            sexo= informacion['sexo']
+
+            paciente=Paciente(DNI=DNI, nombre=nombre, apellido=apellido, mail=mail, fecha_nacimiento=fecha_nacimiento,sexo=sexo)
             paciente.save()
             return render(request, "AppEco/inicio.html")
     
     else:
         miFormulario=PacienteFormulario()
         return render(request, "AppEco/pacienteFormulario.html",{"miFormulario":miFormulario})
+    
+def busquedaPaciente(request):
+    return render(request, "AppEco/busquedaPaciente.html")
+
+def buscar(request):
+    DNI=request.GET["DNI"]
+    if DNI!="":
+        pacientes=Paciente.objects.filter(DNI__icontains=DNI)
+        return render(request, "AppEco/resultadosBusqueda.html", {"pacientes": pacientes})
+    else:
+        return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
