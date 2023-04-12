@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from AppEco.models import Paciente, Medico, Ecografia
-from AppEco.forms import PacienteFormulario
+from AppEco.forms import PacienteFormulario, FormNuevaEcografia
 
 # Create your views here.
 
@@ -69,3 +69,28 @@ def buscar(request):
             return render(request, "AppEco/resultadosBusqueda.html", {"pacientes": pacientes})
     else:
         return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
+    
+def nuevaEco(request):
+    if request.method=="POST":
+        miFormulario = FormNuevaEcografia(request.POST)
+        print(miFormulario)
+
+        if miFormulario.is_valid:
+            informacion = miFormulario.cleaned_data
+        
+            fecha_estudio= informacion['fecha_estudio']
+            medico=informacion['medico']
+            paciente=informacion['paciente']
+            DBP=informacion['DBP']
+            CC=informacion['CC']
+            CA=informacion['CA']
+            LF=informacion['LF']
+            PFE=informacion['PFE']
+
+            ecografia=Ecografia(fecha_estudio=fecha_estudio, medico=medico, paciente=paciente, DBP=DBP, CC=CC, CA=CA, LF=LF, PFE=PFE)
+            ecografia.save()
+            return render(request, "AppEco/inicio.html")
+    
+    else:
+        miFormulario=FormNuevaEcografia()
+        return render(request, "AppEco/ecografiaFormulario.html",{"miFormulario":miFormulario})
