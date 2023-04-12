@@ -1,0 +1,31 @@
+{% extends "AppEco/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+<h1 class="mb-5">Agregar Paciente</h1>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+{%if miFormulario.errors %}
+
+<p>Estan mal los datos, revisar</p>
+
+{% endif %}
+
+
+<form action="/AppEco/pacienteFormulario/" method="POST">{% csrf_token %}
+
+    <table>
+
+        {{ miFormulario.as_table }}
+
+    </table>
+
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

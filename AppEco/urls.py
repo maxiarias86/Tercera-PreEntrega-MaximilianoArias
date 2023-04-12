@@ -7,5 +7,8 @@ urlpatterns = [
     path("pacientes/", pacientes, name="pacientes"),
     path("medicos/", medicos, name="medicos"),
     path("ecografias/", ecografias, name="ecografias"),
+    path("pacienteFormulario/", pacienteFormulario, name="pacienteFormulario"),
+    path("busquedaPaciente/", busquedaPaciente, name="busquedaPaciente"),
+    path('buscar/', buscar, name='buscar'),
     
 ]
