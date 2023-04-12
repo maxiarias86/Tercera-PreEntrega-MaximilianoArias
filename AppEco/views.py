@@ -43,10 +43,29 @@ def pacienteFormulario(request):
 def busquedaPaciente(request):
     return render(request, "AppEco/busquedaPaciente.html")
 
+'''
+Este fue el inicial que no me funcionaba antes de CoderAsk
 def buscar(request):
     DNI=request.GET["DNI"]
     if DNI!="":
         pacientes=Paciente.objects.filter(DNI__icontains=DNI)
         return render(request, "AppEco/resultadosBusqueda.html", {"pacientes": pacientes})
+    else:
+        return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
+'''
+    
+def buscar(request):
+    try:
+        DNI = request.GET["DNI"]
+    except KeyError:
+        return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
+
+    if DNI!="":
+        pacientes = Paciente.objects.filter(DNI__icontains=DNI)
+        if len(pacientes) == 0:
+            mensaje = f"No se encontraron pacientes con DNI {DNI}"
+            return render(request, "AppEco/resultadosBusqueda.html", {"mensaje": mensaje})
+        else:
+            return render(request, "AppEco/resultadosBusqueda.html", {"pacientes": pacientes})
     else:
         return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
