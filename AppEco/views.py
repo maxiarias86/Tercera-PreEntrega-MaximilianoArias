@@ -8,8 +8,30 @@ from AppEco.forms import PacienteFormulario, FormNuevaEcografia
 def inicio(request):
     return render (request, 'AppEco/inicio.html')
 
+'''
 def pacientes(request):
     return render (request, 'AppEco/pacientes.html')
+'''
+
+def pacientes(request):
+    if request.method == "POST":
+        form = PacienteFormulario(request.POST)
+        if form.is_valid():
+            paciente=Paciente()
+            paciente.DNI= form.cleaned_data ['DNI']
+            paciente.nombre=form.cleaned_data ['nombre']
+            paciente.apellido=form.cleaned_data ['apellido']
+            paciente.mail=form.cleaned_data ['mail']
+            paciente.fecha_nacimiento=form.cleaned_data ['fecha_nacimiento']
+            paciente.sexo=form.cleaned_data ['sexo']
+            paciente.save()
+            form=PacienteFormulario()
+        else:
+            form=PacienteFormulario()
+        
+        pacientes=Paciente.objects.all()
+
+    return render (request, 'AppEco/pacientes.html', {'pacientes': pacientes, 'form':form})
 
 def medicos(request):
     return render (request, 'AppEco/medicos.html')
