@@ -42,8 +42,9 @@ def ecografias(request):
 def pacienteFormulario(request):
     if request.method == "POST":
         form = PacienteFormulario(request.POST)
+        print(form)
 
-        if form.is_valid:
+        if form.is_valid():
             informacion = form.cleaned_data
         
             dni= informacion['DNI']
@@ -85,7 +86,7 @@ def nuevaEco(request):
         miFormulario = FormNuevaEcografia(request.POST)
         print(miFormulario)
 
-        if miFormulario.is_valid:
+        if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
         
             fecha_estudio= informacion['fecha_estudio']
@@ -108,6 +109,7 @@ def nuevaEco(request):
 def medicoFormulario(request):
     if request.method == "POST":
         form = MedicoFormulario(request.POST)
+        print(form)
 
         if form.is_valid:
             informacion = form.cleaned_data
