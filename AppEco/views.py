@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from AppEco.models import Paciente, Medico, Ecografia
-from AppEco.forms import PacienteFormulario, FormNuevaEcografia
+from AppEco.forms import PacienteFormulario, FormNuevaEcografia, MedicoFormulario
 
 # Create your views here.
 
@@ -63,17 +63,6 @@ def pacienteFormulario(request):
     
 def busquedaPaciente(request):
     return render(request, "AppEco/busquedaPaciente.html")
-
-'''
-Este fue el inicial que no me funcionaba antes de CoderAsk
-def buscar(request):
-    DNI=request.GET["DNI"]
-    if DNI!="":
-        pacientes=Paciente.objects.filter(DNI__icontains=DNI)
-        return render(request, "AppEco/resultadosBusqueda.html", {"pacientes": pacientes})
-    else:
-        return render(request, "AppEco/busquedaPaciente.html", {"mensaje": "Ingrese el DNI del paciente a buscar"})
-'''
     
 def buscar(request):
     try:
@@ -115,3 +104,23 @@ def nuevaEco(request):
     else:
         miFormulario=FormNuevaEcografia()
         return render(request, "AppEco/ecografiaFormulario.html",{"miFormulario":miFormulario})
+    
+def medicoFormulario(request):
+    if request.method == "POST":
+        form = MedicoFormulario(request.POST)
+
+        if form.is_valid:
+            informacion = form.cleaned_data
+        
+            mn= informacion['MN']
+            nombre= informacion['nombre']
+            apellido= informacion['apellido']
+            mail= informacion['mail']
+            
+            medico=Medico(MN=mn, nombre=nombre, apellido=apellido, mail=mail)
+            medico.save()
+            return render(request, "AppEco/inicio.html")
+    
+    else:
+        form=MedicoFormulario()
+        return render(request, "AppEco/medicoFormulario.html",{"form":form})

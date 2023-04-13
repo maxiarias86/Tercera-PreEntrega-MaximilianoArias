@@ -24,4 +24,10 @@ class FormNuevaEcografia(forms.Form):
     CC=forms.FloatField()
     CA=forms.FloatField()
     LF=forms.FloatField()
-    PFE=forms.IntegerField()    
+    PFE=forms.IntegerField()
+
+class MedicoFormulario(forms.Form):
+    MN= forms.IntegerField()
+    nombre=forms.CharField(max_length=40)
+    apellido=forms.CharField(max_length=40)
+    mail=forms.EmailField()
