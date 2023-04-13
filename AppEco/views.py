@@ -26,10 +26,10 @@ def pacientes(request):
             paciente.sexo=form.cleaned_data ['sexo']
             paciente.save()
             form=PacienteFormulario()
-        else:
-            form=PacienteFormulario()
+    else:
+        form=PacienteFormulario()
         
-        pacientes=Paciente.objects.all()
+    pacientes=Paciente.objects.all()
 
     return render (request, 'AppEco/pacientes.html', {'pacientes': pacientes, 'form':form})
 
@@ -40,27 +40,26 @@ def ecografias(request):
     return render (request, 'AppEco/ecografias.html')
 
 def pacienteFormulario(request):
-    if request.method=="POST":
-        miFormulario = PacienteFormulario(request.POST)
-        print(miFormulario)
+    if request.method == "POST":
+        form = PacienteFormulario(request.POST)
 
-        if miFormulario.is_valid:
-            informacion = miFormulario.cleaned_data
+        if form.is_valid:
+            informacion = form.cleaned_data
         
-            DNI= informacion['DNI']
+            dni= informacion['DNI']
             nombre= informacion['nombre']
             apellido= informacion['apellido']
             mail= informacion['mail']
             fecha_nacimiento= informacion['fecha_nacimiento']
             sexo= informacion['sexo']
 
-            paciente=Paciente(DNI=DNI, nombre=nombre, apellido=apellido, mail=mail, fecha_nacimiento=fecha_nacimiento,sexo=sexo)
+            paciente=Paciente(DNI=dni, nombre=nombre, apellido=apellido, mail=mail, fecha_nacimiento=fecha_nacimiento,sexo=sexo)
             paciente.save()
             return render(request, "AppEco/inicio.html")
     
     else:
-        miFormulario=PacienteFormulario()
-        return render(request, "AppEco/pacienteFormulario.html",{"miFormulario":miFormulario})
+        form=PacienteFormulario()
+        return render(request, "AppEco/pacienteFormulario.html",{"form":form})
     
 def busquedaPaciente(request):
     return render(request, "AppEco/busquedaPaciente.html")

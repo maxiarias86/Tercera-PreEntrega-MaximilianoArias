@@ -14,7 +14,7 @@
 <form action="" method="post">
     {% csrf_token %}
     <table>
-    {{ form.as_table }} <!-- form.as_p / form.as_ul / form -->
+    {{ miFormulario.as_table }} <!-- form.as_p / form.as_ul / form -->
     </table>
     <input type="submit" value="Agregar">         
 </form>
@@ -31,8 +31,6 @@
         </tr>
     </thead>
     <tbody>
-
-
 
         {% for paciente in pacientes %}
         <tr>
