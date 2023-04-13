@@ -1,4 +1,5 @@
 from django import forms
+from AppEco.models import Medico,Paciente
 
 generos = [
     ('M', 'masculino'),
@@ -17,10 +18,25 @@ class PacienteFormulario(forms.Form):
 
 class FormNuevaEcografia(forms.Form):
     fecha_estudio=forms.DateField()
+<<<<<<< HEAD
     medico=forms.ForeignKey(Medico, null=True, blank=True, on_delete=models.SET_NULL)
     paciente=forms.ForeignKey(Paciente, on_delete=models.CASCADE)
+=======
+    medico=forms.ModelChoiceField(queryset=Medico.objects.all())
+    paciente=forms.ModelChoiceField(queryset=Paciente.objects.all())
+>>>>>>> cambios
     DBP=forms.FloatField()
     CC=forms.FloatField()
     CA=forms.FloatField()
     LF=forms.FloatField()
+<<<<<<< HEAD
     PFE=forms.IntegerField()    
+=======
+    PFE=forms.IntegerField()
+
+class MedicoFormulario(forms.Form):
+    MN= forms.IntegerField()
+    nombre=forms.CharField(max_length=40)
+    apellido=forms.CharField(max_length=40)
+    mail=forms.EmailField()
+>>>>>>> cambios
